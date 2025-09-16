@@ -21,6 +21,23 @@ class User(AbstractBaseUser, PermissionsMixin, IndexedTimeStampedModel):
         ),
     )
 
+    # Add the following fields to fix the clash
+    groups = models.ManyToManyField(
+        "auth.Group",
+        related_name="custom_user_set", # Provides a unique reverse accessor
+        blank=True,
+        help_text=_(
+            "The groups this user belongs to. A user will get all "
+            "permissions granted to each of their groups."
+        ),
+    )
+    user_permissions = models.ManyToManyField(
+        "auth.Permission",
+        related_name="custom_user_permissions", # Provides a unique reverse accessor
+        blank=True,
+        help_text=_("Specific permissions for this user."),
+    )
+
     objects = UserManager()
 
     USERNAME_FIELD = "email"
@@ -33,4 +50,3 @@ class User(AbstractBaseUser, PermissionsMixin, IndexedTimeStampedModel):
 
     def __str__(self):
         return self.email
-

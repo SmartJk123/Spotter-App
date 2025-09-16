@@ -1,11 +1,18 @@
 from rest_framework import serializers
-
-from .models import Trip
-
+from .models import Trip, Driver, DailyLog
 
 class TripSerializer(serializers.ModelSerializer):
     class Meta:
         model = Trip
-        fields = ["id", "client_id", "payload", "created_at"]
-        read_only_fields = ["id", "created_at"]
+        fields = "__all__"
+
+class DriverSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Driver
+        fields = "__all__"
+
+class DailyLogSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DailyLog
+        fields = "__all__"
 

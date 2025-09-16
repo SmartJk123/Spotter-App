@@ -3,6 +3,7 @@
 import django_js_reverse.views
 from django.contrib import admin
 from django.urls import include, path
+from django.http import HttpResponse
 from drf_spectacular.views import (SpectacularAPIView, SpectacularRedocView,
                                    SpectacularSwaggerView)
 from rest_framework.routers import DefaultRouter
@@ -17,12 +18,11 @@ for route in routes:
     router.register(route["regex"], route["viewset"], basename=route["basename"])
 
 urlpatterns = [
-    path("", include("common.urls")),
+    path("", lambda r: HttpResponse("Spotter backend OK"), name="root"),
     path("admin/", admin.site.urls),
     path("jsreverse/", django_js_reverse.views.urls_js, name="js_reverse"),
     # API
     path("api/", include(router.urls)),
-    path("api/", include("api.urls")),
     # drf-spectacular
     path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
     path(
@@ -35,6 +35,5 @@ urlpatterns = [
         SpectacularRedocView.as_view(url_name="schema"),
         name="redoc",
     ),
-    path("api/", include("trips.urls")),
+    path("api/trips/", include("trips.urls")), # Correctly link trips
 ]
-
