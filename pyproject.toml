@@ -150,3 +150,4 @@ lines-after-imports = 2
 branch = true
 source = ["backend"]
 omit = ["**/venv/*", "**/env/*", "**/virtualenvs/*", "**/node_modules/*", "**/migrations/*", "**/settings/*", "**/tests/*"]
+

@@ -1,10 +1,12 @@
 # backend/api/views.py
 
-from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
 import json
+
 import requests
 from django.conf import settings
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+
 
 @csrf_exempt  # disable CSRF for API testing
 def calculate_trip(request):
@@ -17,14 +19,16 @@ def calculate_trip(request):
 
             # Ensure origin and destination exist
             if not origin or not destination:
-                return JsonResponse({"error": "Missing origin or destination."}, status=400)
+                return JsonResponse(
+                    {"error": "Missing origin or destination."}, status=400
+                )
 
             # OpenRouteService API endpoint
             url = "https://api.openrouteservice.org/v2/directions/driving-car"
             headers = {
                 "Accept": "application/json",
                 "Authorization": settings.OPENROUTESERVICE_API_KEY,
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
             }
             body = {
                 "coordinates": [
@@ -42,7 +46,9 @@ def calculate_trip(request):
         except json.JSONDecodeError:
             return JsonResponse({"error": "Invalid JSON in request body."}, status=400)
         except requests.exceptions.RequestException as e:
-            return JsonResponse({"error": f"OpenRouteService error: {str(e)}"}, status=500)
+            return JsonResponse(
+                {"error": f"OpenRouteService error: {str(e)}"}, status=500
+            )
         except Exception as e:
             return JsonResponse({"error": f"Unexpected error: {str(e)}"}, status=500)
 
@@ -63,3 +69,4 @@ def trip_history(request):
 @csrf_exempt
 def delete_trip(request, trip_id):
     return JsonResponse({"message": f"Trip {trip_id} deleted"})
+

@@ -1,5 +1,4 @@
 from django.views import generic
-
 from drf_spectacular.utils import OpenApiExample, extend_schema
 from rest_framework import status, viewsets
 from rest_framework.decorators import action
@@ -46,3 +45,4 @@ class RestViewSet(viewsets.ViewSet):
         )
         serializer.is_valid(raise_exception=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+

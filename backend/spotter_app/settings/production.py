@@ -1,10 +1,10 @@
 import sentry_sdk
 from decouple import Csv, config
-from django_guid.integrations import SentryIntegration as DjangoGUIDSentryIntegration
+from django_guid.integrations import \
+    SentryIntegration as DjangoGUIDSentryIntegration
 from sentry_sdk.integrations.django import DjangoIntegration
 
 from .base import *
-
 
 DEBUG = False
 
@@ -135,3 +135,4 @@ JS_REVERSE_EXCLUDE_NAMESPACES = ["admin"]
 
 # Sentry
 sentry_sdk.init(dsn=SENTRY_DSN, integrations=[DjangoIntegration()], release=COMMIT_SHA)
+

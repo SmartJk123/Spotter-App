@@ -1,6 +1,5 @@
 from django.test import TestCase
 from django.urls import reverse
-
 from model_bakery import baker
 from rest_framework.test import APIClient
 
@@ -66,3 +65,4 @@ class TestAuthGetRequestSuccess:
     def test_auth_get_success(self):
         response = self.auth_client.get(self.view_url)
         self.assertResponse200(response)
+

@@ -7,3 +7,4 @@ def sentry_dsn(request):
 
 def commit_sha(request):
     return {"COMMIT_SHA": settings.COMMIT_SHA}
+

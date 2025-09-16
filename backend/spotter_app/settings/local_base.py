@@ -1,5 +1,6 @@
-from .base import *
 import os
+
+from .base import *
 
 DEBUG = True
 
@@ -73,13 +74,13 @@ LOCAL_HOST_WS_URL = "ws://localhost:3000/ws"
 
 # Assuming BASE_DIR is 'C:\\Users\\user\\Desktop\\spotter\\spotter_app\\backend'
 WEBPACK_LOADER = {
-    'DEFAULT': {
-        'BUNDLE_DIR_NAME': 'frontend/webpack_bundles/',  # should be relative to your static root
-        'STATS_FILE': os.path.join(
+    "DEFAULT": {
+        "BUNDLE_DIR_NAME": "frontend/webpack_bundles/",  # should be relative to your static root
+        "STATS_FILE": os.path.join(
             os.path.dirname(os.path.abspath(__file__)),
-            '..', # moves up from spotter_app/settings to spotter_app
-            'frontend', # goes into frontend
-            'webpack-stats.json'
+            "..",  # moves up from spotter_app/settings to spotter_app
+            "frontend",  # goes into frontend
+            "webpack-stats.json",
         ),
     }
 }
@@ -87,3 +88,4 @@ CSP_SCRIPT_SRC = [LOCAL_HOST_URL, LOCAL_HOST_WS_URL]
 CSP_CONNECT_SRC = [LOCAL_HOST_URL, LOCAL_HOST_WS_URL]
 CSP_FONT_SRC = [LOCAL_HOST_URL]
 CSP_IMG_SRC = [LOCAL_HOST_URL]
+

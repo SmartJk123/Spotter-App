@@ -1,6 +1,5 @@
 from celery.schedules import crontab
 
-
 CELERYBEAT_SCHEDULE = {
     # Internal tasks
     "clearsessions": {
@@ -8,3 +7,4 @@ CELERYBEAT_SCHEDULE = {
         "task": "users.tasks.clearsessions",
     },
 }
+

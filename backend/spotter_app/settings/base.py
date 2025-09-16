@@ -6,11 +6,13 @@ from django.conf import settings
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
+
 def base_dir_join(*args):
     return os.path.join(BASE_DIR, *args)
 
+
 SITE_ID = 1
-STATIC_URL = '/static/'
+STATIC_URL = "/static/"
 DEBUG = True
 
 ADMINS = (("Admin", "foo@example.com"),)
@@ -51,7 +53,7 @@ MIDDLEWARE = [
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
-    'corsheaders.middleware.CorsMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
@@ -59,9 +61,7 @@ MIDDLEWARE = [
     "csp.middleware.CSPMiddleware",
     "django_guid.middleware.guid_middleware",
 ]
-AUTHENTICATION_BACKENDS = (
-    "django.contrib.auth.backends.ModelBackend",
-)
+AUTHENTICATION_BACKENDS = ("django.contrib.auth.backends.ModelBackend",)
 
 
 DJANGO_GUID = {
@@ -81,11 +81,13 @@ from dj_database_url import parse as db_url
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
+
 def base_dir_join(*args):
     return os.path.join(BASE_DIR, *args)
 
+
 SITE_ID = 1
-STATIC_URL = '/static/'
+STATIC_URL = "/static/"
 DEBUG = True
 
 ADMINS = (("Admin", "foo@example.com"),)
@@ -94,7 +96,7 @@ AUTH_USER_MODEL = "users.User"
 
 ALLOWED_HOSTS = []
 SECRET_KEY = "t8j_rljs@#n8o53!wz2i$!ol2l3&r18vs$0y7i^#jay#71t$9d"
-OPENROUTESERVICE_API_KEY = "eyJvcmciOiI1YjNjZTM1OTc4NTExMTAwMDFjZjYyNDgiLCJpZCI6ImM1MTQ1YzMyMGQ5MTRjZjQ5ODY4NGIxMzA4ZGJjYzhlIiwiaCI6Im11cm11cjY0In0=";
+OPENROUTESERVICE_API_KEY = "eyJvcmciOiI1YjNjZTM1OTc4NTExMTAwMDFjZjYyNDgiLCJpZCI6ImM1MTQ1YzMyMGQ5MTRjZjQ5ODY4NGIxMzA4ZGJjYzhlIiwiaCI6Im11cm11cjY0In0="
 
 DATABASES = {
     "default": config("DATABASE_URL", cast=db_url),
@@ -107,8 +109,6 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-
-
     "django_js_reverse",
     "webpack_loader",
     "model_utils",
@@ -117,7 +117,6 @@ INSTALLED_APPS = [
     "rest_framework",
     "drf_spectacular",
     "django_guid",
-
     "common",
     "users",
     "api",
@@ -131,7 +130,7 @@ MIDDLEWARE = [
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
-    'corsheaders.middleware.CorsMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
@@ -139,9 +138,7 @@ MIDDLEWARE = [
     "csp.middleware.CSPMiddleware",
     "django_guid.middleware.guid_middleware",
 ]
-AUTHENTICATION_BACKENDS = (
-    'django.contrib.auth.backends.ModelBackend',
-)
+AUTHENTICATION_BACKENDS = ("django.contrib.auth.backends.ModelBackend",)
 
 ASGI_APPLICATION = "spotter_app.asgi.application"
 
@@ -158,25 +155,24 @@ WSGI_APPLICATION = "spotter_app.wsgi.application"
 
 ASGI_APPLICATION = "myproject.asgi.application"
 CHANNEL_LAYERS = {
-  "default": {
-    "BACKEND": "channels_redis.core.RedisChannelLayer",
-    "CONFIG": {"hosts": [("127.0.0.1", 6379)]},
-  },
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {"hosts": [("127.0.0.1", 6379)]},
+    },
 }
 
 
 WEBPACK_LOADER = {
-    'DEFAULT': {
-        'BUNDLE_DIR_NAME': 'webpack_bundles/',
-        'STATS_FILE': 'C:\\Users\\user\\Desktop\\spotter\\spotter_app\\webpack-stats.json',
-        'POLL_INTERVAL': 0.1,
-        'TIMEOUT': 40,
-        'IGNORE': [r'.+\.hot-update\.js', r'.+\.map'],
-
+    "DEFAULT": {
+        "BUNDLE_DIR_NAME": "webpack_bundles/",
+        "STATS_FILE": "C:\\Users\\user\\Desktop\\spotter\\spotter_app\\webpack-stats.json",
+        "POLL_INTERVAL": 0.1,
+        "TIMEOUT": 40,
+        "IGNORE": [r".+\.hot-update\.js", r".+\.map"],
         # These settings are crucial for development
-        'ASSETS_BASE_URL': 'http://localhost:3000/',
-        'PUBLIC_PATH': 'http://localhost:3000/frontend/webpack_bundles/',
-        'CACHE': False, # Set to True for production
+        "ASSETS_BASE_URL": "http://localhost:3000/",
+        "PUBLIC_PATH": "http://localhost:3000/frontend/webpack_bundles/",
+        "CACHE": False,  # Set to True for production
     }
 }
 CORS_ALLOWED_ORIGINS = [
@@ -187,7 +183,9 @@ CORS_ALLOWED_ORIGINS = [
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [os.path.join(BASE_DIR, "templates")],  # you can add React template dir later
+        "DIRS": [
+            os.path.join(BASE_DIR, "templates")
+        ],  # you can add React template dir later
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -205,25 +203,24 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 ASGI_APPLICATION = "myproject.asgi.application"
 CHANNEL_LAYERS = {
-  "default": {
-    "BACKEND": "channels_redis.core.RedisChannelLayer",
-    "CONFIG": {"hosts": [("127.0.0.1", 6379)]},
-  },
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {"hosts": [("127.0.0.1", 6379)]},
+    },
 }
 
 
 WEBPACK_LOADER = {
-    'DEFAULT': {
-        'BUNDLE_DIR_NAME': 'webpack_bundles/',
-        'STATS_FILE': 'C:\\Users\\user\\Desktop\\spotter\\spotter_app\\webpack-stats.json',
-        'POLL_INTERVAL': 0.1,
-        'TIMEOUT': 40,
-        'IGNORE': [r'.+\.hot-update\.js', r'.+\.map'],
-
+    "DEFAULT": {
+        "BUNDLE_DIR_NAME": "webpack_bundles/",
+        "STATS_FILE": "C:\\Users\\user\\Desktop\\spotter\\spotter_app\\webpack-stats.json",
+        "POLL_INTERVAL": 0.1,
+        "TIMEOUT": 40,
+        "IGNORE": [r".+\.hot-update\.js", r".+\.map"],
         # These settings are crucial for development
-        'ASSETS_BASE_URL': 'http://localhost:3000/',
-        'PUBLIC_PATH': 'http://localhost:3000/frontend/webpack_bundles/',
-        'CACHE': False, # Set to True for production
+        "ASSETS_BASE_URL": "http://localhost:3000/",
+        "PUBLIC_PATH": "http://localhost:3000/frontend/webpack_bundles/",
+        "CACHE": False,  # Set to True for production
     }
 }
 CORS_ALLOWED_ORIGINS = [
@@ -234,7 +231,9 @@ CORS_ALLOWED_ORIGINS = [
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [os.path.join(BASE_DIR, "templates")],  # you can add React template dir later
+        "DIRS": [
+            os.path.join(BASE_DIR, "templates")
+        ],  # you can add React template dir later
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -248,3 +247,4 @@ TEMPLATES = [
 ]
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+

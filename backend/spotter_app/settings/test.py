@@ -1,6 +1,5 @@
 from .base import *
 
-
 SECRET_KEY = "test"  # nosec
 
 STATIC_ROOT = base_dir_join("staticfiles")
@@ -26,3 +25,4 @@ PASSWORD_HASHERS = [
 # Celery
 CELERY_TASK_ALWAYS_EAGER = True
 CELERY_TASK_EAGER_PROPAGATES = True
+

@@ -4,7 +4,6 @@ import "leaflet/dist/leaflet.css";
 
 const ORS_API_KEY = process.env.REACT_APP_ORS_API_KEY as string;
 
-
 interface MapViewProps {
   start: string;
   pickup: string;
@@ -28,8 +27,8 @@ const MapView: React.FC<MapViewProps> = ({ start, pickup, drop }) => {
         const geocode = async (place: string) => {
           const res = await fetch(
             `https://api.openrouteservice.org/geocode/search?api_key=${ORS_API_KEY}&text=${encodeURIComponent(
-              place
-            )}`
+              place,
+            )}`,
           );
           const data = await res.json();
           if (data.features && data.features.length > 0) {
@@ -60,7 +59,7 @@ const MapView: React.FC<MapViewProps> = ({ start, pickup, drop }) => {
               Authorization: ORS_API_KEY,
             },
             body: JSON.stringify(body),
-          }
+          },
         );
 
         const routeData = await routeRes.json();
@@ -79,14 +78,13 @@ const MapView: React.FC<MapViewProps> = ({ start, pickup, drop }) => {
 
         // Simulated movement marker
         const coords = routeData.features[0].geometry.coordinates.map(
-          (c: number[]) => [c[1], c[0]]
+          (c: number[]) => [c[1], c[0]],
         ); // lat, lng
 
         let i = 0;
         const movingMarker = L.marker(coords[0], {
           icon: L.icon({
-            iconUrl:
-              "https://cdn-icons-png.flaticon.com/512/684/684908.png", // truck icon
+            iconUrl: "https://cdn-icons-png.flaticon.com/512/684/684908.png", // truck icon
             iconSize: [30, 30],
           }),
         }).addTo(mapRef.current!);
@@ -111,3 +109,4 @@ const MapView: React.FC<MapViewProps> = ({ start, pickup, drop }) => {
 };
 
 export default MapView;
+

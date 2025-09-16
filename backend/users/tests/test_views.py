@@ -1,8 +1,8 @@
 from django.urls import reverse
-
-from common.utils.tests import TestCaseUtils
 from model_bakery import baker
 from rest_framework.test import APITestCase
+
+from common.utils.tests import TestCaseUtils
 
 from ..models import User
 
@@ -75,3 +75,4 @@ class UserViewSetTest(TestCaseUtils, APITestCase):
 
         self.assertResponse204(response)
         self.assertFalse(User.objects.filter(id=user.id).exists())
+

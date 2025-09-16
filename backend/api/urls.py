@@ -1,6 +1,7 @@
 # backend/api/urls.py
 
 from django.urls import path
+
 from . import views
 
 urlpatterns = [
@@ -9,3 +10,4 @@ urlpatterns = [
     path("trip-history/", views.trip_history, name="trip_history"),
     path("delete-trip/<int:trip_id>/", views.delete_trip, name="delete_trip"),
 ]
+

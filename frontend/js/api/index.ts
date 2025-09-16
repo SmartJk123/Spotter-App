@@ -59,9 +59,7 @@ export async function planTrip(input: TripInput): Promise<TripResult> {
           [-77.0369, 38.9072],
         ],
       },
-      fueling_stops: [
-        { lat: 39.5, lon: -75.8, note: "Fuel at station A" },
-      ],
+      fueling_stops: [{ lat: 39.5, lon: -75.8, note: "Fuel at station A" }],
       daily_sheets: [
         {
           day: 1,
@@ -80,3 +78,4 @@ export async function planTrip(input: TripInput): Promise<TripResult> {
   const res = await api.post<TripResult>("/api/route/", input);
   return res.data;
 }
+

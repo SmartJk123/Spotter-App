@@ -14,3 +14,4 @@
   "include": ["frontend/**/*.ts", "frontend/**/*.tsx"],
   "exclude": ["node_modules", "build"]
 }
+

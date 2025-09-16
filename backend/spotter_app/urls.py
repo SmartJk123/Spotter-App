@@ -1,15 +1,13 @@
 # backend/spotter_app/urls.py
 
+import django_js_reverse.views
 from django.contrib import admin
 from django.urls import include, path
-import django_js_reverse.views
-from common.routes import routes as common_routes
-from drf_spectacular.views import (
-    SpectacularAPIView,
-    SpectacularRedocView,
-    SpectacularSwaggerView,
-)
+from drf_spectacular.views import (SpectacularAPIView, SpectacularRedocView,
+                                   SpectacularSwaggerView)
 from rest_framework.routers import DefaultRouter
+
+from common.routes import routes as common_routes
 from users.routes import routes as users_routes
 
 router = DefaultRouter()
@@ -22,11 +20,9 @@ urlpatterns = [
     path("", include("common.urls")),
     path("admin/", admin.site.urls),
     path("jsreverse/", django_js_reverse.views.urls_js, name="js_reverse"),
-
     # API
     path("api/", include(router.urls)),
     path("api/", include("api.urls")),
-
     # drf-spectacular
     path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
     path(
@@ -39,5 +35,6 @@ urlpatterns = [
         SpectacularRedocView.as_view(url_name="schema"),
         name="redoc",
     ),
-    path('api/', include('trips.urls')),
+    path("api/", include("trips.urls")),
 ]
+

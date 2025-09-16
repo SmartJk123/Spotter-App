@@ -16,3 +16,4 @@ class UserSerializer(serializers.ModelSerializer):
             "modified",
             "last_login",
         ]
+
