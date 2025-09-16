@@ -1,1 +1,26 @@
-node_modules
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+.env
+.env.*
+.venv/
+db.sqlite3
+
+# Django
+*/migrations/__pycache__/
+*.log
+
+# Node/JS
+node_modules/
+frontend/node_modules/
+dist/
+build/
+*.map
+
+# IDE
+.vscode/
+.idea/
+.DS_Store

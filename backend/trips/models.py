@@ -18,22 +18,12 @@ class Trip(models.Model):
     """
     Stores details for each trip a driver takes.
     """
-    driver = models.ForeignKey(Driver, on_delete=CASCADE, related_name='trips')
-    pickup_location = models.CharField(max_length=255)
-    dropoff_location = models.CharField(max_length=255)
-    current_cycle_used = models.FloatField()
-    total_miles = models.IntegerField()
-    timestamp = models.DateTimeField(auto_now_add=True)
-    
-    # Using JSONField to store unstructured data like routes and stops
-    route = JSONField(blank=True, null=True)
-    stops = JSONField(blank=True, null=True)
-
-    class Meta:
-        ordering = ['-timestamp']
+    client_id = models.CharField(max_length=64, db_index=True)  # id from frontend
+    payload = models.JSONField()  # entire trip plan (route, stops, dailyLogs, etc.)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"Trip for {self.driver.name} from {self.pickup_location} to {self.dropoff_location}"
+        return f"{self.client_id} - {self.created_at:%Y-%m-%d %H:%M}"
 
 class DailyLog(models.Model):
     """

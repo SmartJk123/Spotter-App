@@ -2,6 +2,7 @@ import os
 
 from decouple import config
 from dj_database_url import parse as db_url
+from django.conf import settings
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
@@ -18,7 +19,6 @@ AUTH_USER_MODEL = "users.User"
 
 ALLOWED_HOSTS = []
 SECRET_KEY = "t8j_rljs@#n8o53!wz2i$!ol2l3&r18vs$0y7i^#jay#71t$9d"
-OPENROUTESERVICE_API_KEY = "eyJvcmciOiI1YjNjZTM1OTc4NTExMTAwMDFjZjYyNDgiLCJpZCI6ImM1MTQ1YzMyMGQ5MTRjZjQ5ODY4NGIxMzA4ZGJjYzhlIiwiaCI6Im11cm11cjY0In0=";
 
 DATABASES = {
     "default": config("DATABASE_URL", cast=db_url),

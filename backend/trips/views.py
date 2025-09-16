@@ -14,16 +14,11 @@ class DriverDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Driver.objects.all()
     serializer_class = DriverSerializer
 
-class TripListCreateView(generics.ListCreateAPIView):
-    queryset = Trip.objects.all()
+class TripListCreate(generics.ListCreateAPIView):
+    queryset = Trip.objects.order_by('-created_at')
     serializer_class = TripSerializer
 
-    def perform_create(self, serializer):
-        driver_id = self.request.data.get('driver')
-        driver = get_object_or_404(Driver, id=driver_id)
-        serializer.save(driver=driver)
-
-class TripDetailView(generics.RetrieveUpdateDestroyAPIView):
+class TripRetrieveDestroy(generics.RetrieveDestroyAPIView):
     queryset = Trip.objects.all()
     serializer_class = TripSerializer
 
