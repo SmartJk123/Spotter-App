@@ -1,108 +1,78 @@
 const path = require("path");
-
 const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const BundleTracker = require("webpack-bundle-tracker");
 
 module.exports = (env, argv) => {
   const isDev = argv.mode === "development";
-  const nodeModulesDir = path.resolve(__dirname, "node_modules");
-  const localhostOutput = {
-    path: path.resolve("./frontend/webpack_bundles/"),
-    publicPath: "http://localhost:3000/frontend/webpack_bundles/",
-    filename: "[name].js",
-  };
-  const productionOutput = {
-    path: path.resolve("./frontend/webpack_bundles/"),
-    publicPath: "auto",
-    filename: "[name]-[chunkhash].js",
-    clean: true,
-  };
-
-  const BundleTracker = require("webpack-bundle-tracker");
-
-module.exports = {
-  plugins: [
-    new BundleTracker({ filename: "./webpack-stats.json" }),
-  ],
-  output: {
-    path: path.resolve(__dirname, "./bundles/"),
-    filename: "bundle.js",
-    publicPath: "http://localhost:3000/bundles/",
-  },
-};
-
 
   return {
     mode: isDev ? "development" : "production",
     devtool: "source-map",
-
-devServer: {
-  static: {
-    directory: path.resolve(__dirname, "frontend/public"), // ✅ serves index.html
-  },
-  hot: true,
-  historyApiFallback: true, // SPA fallback for React Router
-  host: "0.0.0.0",
-  port: 3000,
-  headers: { "Access-Control-Allow-Origin": "*" },
-},
-
-
     context: __dirname,
     entry: ["./frontend/js/index.tsx"],
-    output: isDev ? localhostOutput : productionOutput,
+    output: isDev
+      ? {
+          path: path.resolve("./frontend/webpack_bundles/"),
+          publicPath: "http://localhost:3000/frontend/webpack_bundles/",
+          filename: "[name].js",
+        }
+      : {
+          path: path.resolve("./frontend/webpack_bundles/"),
+          publicPath: "auto",
+          filename: "[name]-[chunkhash].js",
+          clean: true,
+        },
+    devServer: isDev
+      ? {
+          static: { directory: path.resolve(__dirname, "frontend/public") },
+          hot: true,
+          historyApiFallback: true,
+          host: "0.0.0.0",
+          port: 3000,
+          headers: { "Access-Control-Allow-Origin": "*" },
+        }
+      : undefined,
     module: {
       rules: [
         {
-          test: /\.(js|mjs|jsx|ts|tsx)$/,
-          use: {
-            loader: "swc-loader",
-          },
+          test: /\.(ts|tsx)$/,
+            use: [{ loader: "ts-loader" }],
+          exclude: /node_modules/,
+        },
+        {
+          test: /\.(js|jsx)$/,
+          type: "javascript/auto",
+          exclude: /node_modules/,
         },
         {
           test: /\.css$/,
           use: [
-            isDev && "style-loader",
-            !isDev && MiniCssExtractPlugin.loader,
+            isDev ? "style-loader" : MiniCssExtractPlugin.loader,
             { loader: "css-loader", options: { importLoaders: 1 } },
-            // Tailwind v4 uses @tailwindcss/postcss (condigured in the postcss.config.mjs file)
             "postcss-loader",
-          ].filter(Boolean),
+          ],
         },
-        {
-          test: /\.(svg)(\?v=\d+\.\d+\.\d+)?$/,
-          type: "asset",
-        },
-        {
-          test: /\.(woff(2)?|eot|ttf|otf)(\?v=\d+\.\d+\.\d+)?$/,
-          type: "asset",
-        },
-        {
-          test: /\.(png|jpg|jpeg|gif|webp)?$/,
-          type: "asset",
-        },
+        { test: /\.(svg)(\?v=\d+\.\d+\.\d+)?$/, type: "asset" },
+        { test: /\.(woff2?|eot|ttf|otf)(\?v=\d+\.\d+\.\d+)?$/, type: "asset" },
+        { test: /\.(png|jpg|jpeg|gif|webp)?$/, type: "asset" },
       ],
     },
     plugins: [
-      !isDev &&
-        new MiniCssExtractPlugin({ filename: "[name]-[chunkhash].css" }),
+      !isDev && new MiniCssExtractPlugin({ filename: "[name]-[chunkhash].css" }),
       isDev && new ReactRefreshWebpackPlugin(),
-      new BundleTracker({
-        path: __dirname,
-        filename: "webpack-stats.json",
-      }),
+      new BundleTracker({ path: __dirname, filename: "webpack-stats.json" }),
     ].filter(Boolean),
     resolve: {
-      modules: [nodeModulesDir, path.resolve(__dirname, "frontend/js/")],
-      extensions: [".js", ".jsx", ".ts", ".tsx"],
+      modules: [
+        path.resolve(__dirname, "node_modules"),
+        path.resolve(__dirname, "frontend/js/"),
+      ],
+      extensions: [".ts", ".tsx", ".js"],
     },
     optimization: {
       minimize: !isDev,
-      splitChunks: {
-        // include all types of chunks
-        chunks: "all",
-      },
+      splitChunks: { chunks: "all" },
     },
   };
 };

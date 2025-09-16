@@ -2,22 +2,21 @@
   "name": "spotter_app-frontend",
   "version": "0.0.1",
   "private": true,
-  "description": "{{project_name}} frontend.",
   "engines": {
-    "node": "18.x"
+    "node": "20.x"
   },
   "browserslist": "> 0.25%, not dead",
   "main": "frontend/js/index.tsx",
   "scripts": {
+    "dev": "webpack serve --mode=development --hot",
+    "build": "NODE_ENV=production tsc && webpack --progress --bail --mode=production",
+    "lint": "eslint frontend --fix",
+    "tsc": "tsc -p ./tsconfig.json --noEmit",
+    "openapi-ts": "openapi-ts",
     "test": "jest",
     "test:watch": "npm test -- --watch",
     "test:update": "npm test -- --u",
-    "dev": "webpack serve --mode=development --hot",
-    "build": "cross-env SWC_USE_WASM=1 NODE_ENV=production tsc && webpack --progress --bail --mode=production",
-    "lint": "eslint frontend --fix",
-    "tsc": "tsc -p ./tsconfig.json --noEmit",
-    "coverage": "jest --coverage",
-    "openapi-ts": "openapi-ts"
+    "coverage": "jest --coverage"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.7.2",
@@ -44,9 +43,6 @@
   },
   "devDependencies": {
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.13",
-    "@swc/cli": "^0.7.8",
-    "@swc/core": "^1.13.5",
-    "@swc/jest": "^0.2.36",
     "@tailwindcss/postcss": "^4.1.13",
     "@testing-library/jest-dom": "~6.4.5",
     "@testing-library/react": "~15.0.7",
@@ -59,15 +55,14 @@
     "@types/react": "^18.3.24",
     "@types/react-dom": "^18.3.7",
     "@types/testing-library__jest-dom": "^6.0.0",
+    "cross-env": "^7.0.3",
     "css-loader": "^7.1.2",
     "mini-css-extract-plugin": "^2.9.0",
     "postcss-loader": "^8.2.0",
     "style-loader": "^3.3.1",
-    "swc-loader": "^0.2.6",
+    "ts-loader": "^9.5.1",
     "webpack-bundle-tracker": "^3.1.0",
     "webpack-cli": "^6.0.1",
-    "webpack-dev-server": "^5.2.2",
-    "@swc/wasm": "^1.7.26",
-    "cross-env": "^7.0.3"
+    "webpack-dev-server": "^5.2.2"
   }
 }
