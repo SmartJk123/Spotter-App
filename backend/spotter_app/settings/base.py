@@ -67,7 +67,6 @@ WEBPACK_LOADER = {
         "STATS_FILE": str(BASE_DIR / "frontend" / "webpack-stats.json"),
     }
 }
-
 STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 CORS_ALLOW_ALL_ORIGINS = True

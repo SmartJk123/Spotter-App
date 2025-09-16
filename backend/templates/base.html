@@ -1,30 +1,111 @@
-{% load webpack_loader %}
-
-<!DOCTYPE html>
-<html class="no-js" lang="en">
+<!doctype html>
+<html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <title>{% block title %}{% endblock %}</title>
-  <meta name="description" content="" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-  <link rel="shortcut icon" href="#" />
-
-  {% render_bundle 'main' 'css' %}
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Spotter Admin</title>
+  <style>
+    :root{--bg:#0b1220;--panel:#0f172a;--card:#111827;--border:#1f2937;
+      --text:#e5e7eb;--muted:#9ca3af;--brand:#0ea5e9;--accent:#22c55e;--accentText:#052e16;--danger:#ef4444}
+    *{box-sizing:border-box} html,body{height:100%}
+    body{margin:0;background:var(--bg);color:var(--text);font:14px/1.5 ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
+    a{color:var(--brand);text-decoration:none} a:hover{opacity:.9}
+    .layout{display:grid;grid-template-columns:240px 1fr;min-height:100%}
+    .sidebar{background:var(--panel);border-right:1px solid var(--border);padding:18px;position:sticky;top:0;height:100vh}
+    .brand{display:flex;align-items:center;gap:10px;margin:0 0 18px}
+    .brand .logo{width:26px;height:26px;border-radius:6px;background:linear-gradient(135deg,var(--brand),#22d3ee)}
+    .brand a{color:var(--text);font-weight:700;letter-spacing:.3px}
+    nav .group{margin-top:14px}
+    .nav-title{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.12em;margin:12px 0 6px}
+    .nav{display:flex;flex-direction:column;gap:6px}
+    .nav a{padding:8px 10px;border-radius:8px;color:var(--muted)}
+    .nav a.active,.nav a:hover{background:var(--card);color:var(--text);border:1px solid var(--border)}
+    .page{display:flex;flex-direction:column;min-height:100vh}
+    .topbar{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid var(--border);background:rgba(15,23,42,.6);backdrop-filter:saturate(140%) blur(4px)}
+    .search{flex:1;max-width:520px;margin:0 16px}
+    .search input{width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:10px;background:var(--card);color:var(--text)}
+    .actions{display:flex;gap:10px;align-items:center}
+    .btn{background:var(--accent);color:var(--accentText);border:none;padding:8px 12px;border-radius:8px;cursor:pointer;font-weight:600}
+    .btn.secondary{background:var(--card);color:var(--text);border:1px solid var(--border)}
+    .content{padding:18px;display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px}
+    .muted{color:var(--muted)}
+    .footer{margin-top:auto;padding:14px 16px;border-top:1px solid var(--border);color:var(--muted)}
+    .toggle{display:none}
+    @media (max-width:960px){.layout{grid-template-columns:1fr}
+      .sidebar{position:fixed;left:0;top:0;bottom:0;transform:translateX(-100%);transition:transform .2s ease}
+      .sidebar.open{transform:translateX(0)} .toggle{display:inline-flex} .content{grid-template-columns:1fr}}
+  </style>
 </head>
+<body class="layout">
+  <aside class="sidebar" id="sidebar">
+    <h1 class="brand">
+      <span class="logo" aria-hidden="true"></span>
+      <a href="/admin/">Spotter Admin</a>
+    </h1>
+    <div class="group">
+      <div class="nav-title">Main</div>
+      <div class="nav">
+        <a href="/admin/" data-path="/admin/">Dashboard</a>
+        <a href="/admin/trips/trip/" data-path="/admin/trips/trip/">Trips</a>
+        <a href="/admin/auth/user/" data-path="/admin/auth/user/">Users</a>
+        <a href="/api/trips/" data-path="/api/trips/">Trips API</a>
+      </div>
+    </div>
+    <div class="group">
+      <div class="nav-title">Account</div>
+      <div class="nav">
+        <a href="/admin/password_change/">Password</a>
+        <a href="/admin/logout/">Sign out</a>
+      </div>
+    </div>
+  </aside>
 
-<body>
-  {% include 'includes/sentry_init.html' %}
+  <div class="page">
+    <header class="topbar">
+      <button class="btn secondary toggle" id="toggle">Menu</button>
+      <div class="search"><input type="search" placeholder="Search…" aria-label="Search" /></div>
+      <div class="actions">
+        <a class="btn secondary" href="/admin/">Admin</a>
+        <a class="btn" href="/admin/trips/trip/add/">New Trip</a>
+      </div>
+    </header>
 
-  <div id="root">
-    {% block content %}
-    {% endblock content %}
+    <main id="content" class="content">
+      <section class="card">
+        <h2>Welcome</h2>
+        <p class="muted">Manage Spotter data with a fast, minimal interface.</p>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:8px">
+          <a class="btn" href="/admin/trips/trip/">Open Trips</a>
+          <a class="btn secondary" href="/admin/">All apps</a>
+          <a class="btn secondary" href="/api/trips/">Open API</a>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Quick stats</h2>
+        <p class="muted">Add your widgets or summaries here.</p>
+      </section>
+    </main>
+
+    <footer class="footer">© {{ now|default:""|date:"Y" }} Spotter. All rights reserved.</footer>
   </div>
 
-  <script src="{% url 'js_reverse' %}" type="text/javascript"></script>
-
-  {% render_bundle 'main' %}
+  <script>
+    (function(){
+      var sidebar=document.getElementById('sidebar');
+      var toggle=document.getElementById('toggle');
+      if(toggle){
+        toggle.addEventListener('click',function(){
+          var open=sidebar.classList.toggle('open');
+          try{localStorage.setItem('spotter_sidebar_open',open?'1':'0');}catch(e){}
+        });
+        try{if(localStorage.getItem('spotter_sidebar_open')==='1'){sidebar.classList.add('open');}}catch(e){}
+      }
+      var links=sidebar.querySelectorAll('[data-path]'); var path=location.pathname;
+      links.forEach(function(a){ if(path.startsWith(a.getAttribute('data-path'))){ a.classList.add('active'); }});
+    })();
+  </script>
 </body>
 </html>
 
