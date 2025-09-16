@@ -1,15 +1,17 @@
-// import pages
-import * as Sentry from "@sentry/browser";
-import { createRoot } from "react-dom/client";
+// frontend/src/index.tsx
+import React from 'react';
+import { createRoot } from 'react-dom/client';
+import { App } from './App';
+import '../css/styles.css';
 
-import App from "./App";
-
-import "../css/style.css";
-
-Sentry.init({
-  dsn: window.SENTRY_DSN,
-  release: window.COMMIT_SHA,
-});
-
-const root = createRoot(document.getElementById("react-app") as HTMLElement);
-root.render(<App />);
+const container = document.getElementById('root');
+if (container) {
+  const root = createRoot(container);
+  root.render(
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
+  );
+} else {
+  console.error('Failed to find the root element to mount the React app.');
+}

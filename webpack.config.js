@@ -19,17 +19,36 @@ module.exports = (env, argv) => {
     clean: true,
   };
 
+  const BundleTracker = require("webpack-bundle-tracker");
+
+module.exports = {
+  plugins: [
+    new BundleTracker({ filename: "./webpack-stats.json" }),
+  ],
+  output: {
+    path: path.resolve(__dirname, "./bundles/"),
+    filename: "bundle.js",
+    publicPath: "http://localhost:3000/bundles/",
+  },
+};
+
+
   return {
     mode: isDev ? "development" : "production",
     devtool: "source-map",
-    devServer: {
-      hot: true,
-      historyApiFallback: true,
-      host: "0.0.0.0",
-      port: 3000,
-      // Allow CORS requests from the Django dev server domain:
-      headers: { "Access-Control-Allow-Origin": "*" },
-    },
+
+devServer: {
+  static: {
+    directory: path.resolve(__dirname, "frontend/public"), // ✅ serves index.html
+  },
+  hot: true,
+  historyApiFallback: true, // SPA fallback for React Router
+  host: "0.0.0.0",
+  port: 3000,
+  headers: { "Access-Control-Allow-Origin": "*" },
+},
+
+
     context: __dirname,
     entry: ["./frontend/js/index.tsx"],
     output: isDev ? localhostOutput : productionOutput,

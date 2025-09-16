@@ -1,4 +1,4 @@
-{% load render_bundle from webpack_loader %}
+{% load webpack_loader %}
 
 <!DOCTYPE html>
 <html class="no-js" lang="en">
@@ -11,21 +11,19 @@
 
   <link rel="shortcut icon" href="#" />
 
-  <!-- Webpack rendered CSS -->
   {% render_bundle 'main' 'css' %}
 </head>
 
 <body>
   {% include 'includes/sentry_init.html' %}
 
-  <!-- Body Content -->
-  {% block body %}{% endblock %}
+  <div id="root">
+    {% block content %}
+    {% endblock content %}
+  </div>
 
-  <!-- django-js-reverse -->
   <script src="{% url 'js_reverse' %}" type="text/javascript"></script>
 
-  <!-- Webpack rendered Javascript -->
-  {% render_bundle 'main' 'js' 'DEFAULT' %}
-  {% block scripts %}{% endblock %}
+  {% render_bundle 'main' %}
 </body>
 </html>

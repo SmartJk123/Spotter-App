@@ -1,0 +1,32 @@
+{
+  "status": "done",
+  "assets": {
+    "main.js": {
+      "name": "main.js",
+      "path": "C:\\Users\\user\\Desktop\\spotter\\spotter_app\\frontend\\webpack_bundles\\main.js",
+      "publicPath": "http://localhost:3000/frontend/webpack_bundles/main.js"
+    },
+    "main.js.map": {
+      "name": "main.js.map",
+      "path": "C:\\Users\\user\\Desktop\\spotter\\spotter_app\\frontend\\webpack_bundles\\main.js.map",
+      "publicPath": "http://localhost:3000/frontend/webpack_bundles/main.js.map"
+    },
+    "vendors-node_modules_pmmmwh_react-refresh-webpack-plugin_lib_runtime_RefreshUtils_js-node_mod-0b3dc4.js": {
+      "name": "vendors-node_modules_pmmmwh_react-refresh-webpack-plugin_lib_runtime_RefreshUtils_js-node_mod-0b3dc4.js",
+      "path": "C:\\Users\\user\\Desktop\\spotter\\spotter_app\\frontend\\webpack_bundles\\vendors-node_modules_pmmmwh_react-refresh-webpack-plugin_lib_runtime_RefreshUtils_js-node_mod-0b3dc4.js",
+      "publicPath": "http://localhost:3000/frontend/webpack_bundles/vendors-node_modules_pmmmwh_react-refresh-webpack-plugin_lib_runtime_RefreshUtils_js-node_mod-0b3dc4.js"
+    },
+    "vendors-node_modules_pmmmwh_react-refresh-webpack-plugin_lib_runtime_RefreshUtils_js-node_mod-0b3dc4.js.map": {
+      "name": "vendors-node_modules_pmmmwh_react-refresh-webpack-plugin_lib_runtime_RefreshUtils_js-node_mod-0b3dc4.js.map",
+      "path": "C:\\Users\\user\\Desktop\\spotter\\spotter_app\\frontend\\webpack_bundles\\vendors-node_modules_pmmmwh_react-refresh-webpack-plugin_lib_runtime_RefreshUtils_js-node_mod-0b3dc4.js.map",
+      "publicPath": "http://localhost:3000/frontend/webpack_bundles/vendors-node_modules_pmmmwh_react-refresh-webpack-plugin_lib_runtime_RefreshUtils_js-node_mod-0b3dc4.js.map"
+    }
+  },
+  "chunks": {
+    "main": [
+      "vendors-node_modules_pmmmwh_react-refresh-webpack-plugin_lib_runtime_RefreshUtils_js-node_mod-0b3dc4.js",
+      "main.js"
+    ]
+  },
+  "publicPath": "http://localhost:3000/frontend/webpack_bundles/"
+}
