@@ -4,7 +4,7 @@
   "private": true,
   "description": "{{project_name}} frontend.",
   "engines": {
-    "node": ">=18"
+    "node": "18.x"
   },
   "browserslist": "> 0.25%, not dead",
   "main": "frontend/js/index.tsx",
@@ -13,7 +13,7 @@
     "test:watch": "npm test -- --watch",
     "test:update": "npm test -- --u",
     "dev": "webpack serve --mode=development --hot",
-    "build": "NODE_ENV=production tsc && webpack --progress --bail --mode=production",
+    "build": "cross-env SWC_USE_WASM=1 NODE_ENV=production tsc && webpack --progress --bail --mode=production",
     "lint": "eslint frontend --fix",
     "tsc": "tsc -p ./tsconfig.json --noEmit",
     "coverage": "jest --coverage",
@@ -66,6 +66,8 @@
     "swc-loader": "^0.2.6",
     "webpack-bundle-tracker": "^3.1.0",
     "webpack-cli": "^6.0.1",
-    "webpack-dev-server": "^5.2.2"
+    "webpack-dev-server": "^5.2.2",
+    "@swc/wasm": "^1.7.26",
+    "cross-env": "^7.0.3"
   }
 }
